@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+
+{% block body %}
+  <section class="header">
+    <h2 class="title">Credit Card Default Prediction!</h2>
+  </section>
+  <hr />
+
+  <div class="content">
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      <div class="row">
+        <div class="three columns">
+          {{ form.Limit_bal.label }} {{ form.Limit_bal() }}
+        </div>
+        <div class="three columns">
+          {{ form.Gender.label }} {{ form.Gender() }}
+        </div>
+        <div class="three columns">
+          {{ form.Education.label }} {{ form.Education() }}
+        </div>
+        <div class="three columns">
+          {{ form.Marriage.label }} {{ form.Marriage() }}
+        </div>
+        <div class="three columns">
+          {{ form.Age.label }} {{ form.Age() }}
+        </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="button-primary">Submit</button>
+      </div>
+    </form>
+    {% if prediction %}
+      <div class="row">
+        <div class="six columns">
+          <h2>It is a {{ prediction }}</h2>
+          <!-- <img src="{{url_for('static', filename='images/iris_' + prediction + '.jpg')}}"
+              height="300" -->
+          <!-- /> -->
+        </div>
+        <div class="six columns">
+         <!--  Your Chart or any other form of visualizations -->
+         <div id="chart"></div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock body %}
+
+{% block js %}
+  <script type="text/javascript">
+  // your JS Code
+  // Your D3 code could be here
+  </script>
+{% endblock js %}
