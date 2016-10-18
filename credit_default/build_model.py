@@ -31,8 +31,10 @@ if __name__ == "__main__":
     features = df.iloc[:, :5]
     feature_names = list(features.columns.values)
     target = df['default payment next month']
-    target_names = [1,0]
+    # target= target.replace(to_replace=0, value="Paid")
+    # target= target.replace(to_replace=1, value="Default")
+    target_names = ["Paid", "Default"]
 
     knn = KNeighborsClassifier(n_neighbors=3)
-    knnfit = (features, target)
+    knn.fit(features, target)
     joblib.dump(knn, 'models/credit_model.pkl')

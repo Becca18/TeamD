@@ -51,10 +51,11 @@ def index():
         # flower_instance = [sepal_length, sepal_width, petal_length, petal_width]
         default_instance = [Limit_bal, Gender, Education, Marriage, Age]
         # my_prediction = estimator.predict(flower_instance)
-        my_prediction = estimator.predict(default_instance)
+        my_prediction = int(estimator.predict(default_instance)) # 0 or 1
+        #print my_prediction
         # Return only the Predicted iris species
         # predicted_iris = target_names[my_prediction]
-        predicted_default = target_names[my_prediction]
+        predicted_default = target_names[my_prediction] # paid or default
 
     return render_template('index.html',
         form=form,

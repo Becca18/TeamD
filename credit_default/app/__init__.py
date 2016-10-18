@@ -17,7 +17,7 @@ app.config.from_object("app.config")
 # estimator = joblib.load('models/iris_model.pkl')
 # target_names = ['setosa', 'versicolor', 'virginica']
 estimator = joblib.load('models/credit_model.pkl')
-target_names = [1, 0]
+target_names = ["Default", "Paid"]
 
 
 from .views import *   # flake8: noqa

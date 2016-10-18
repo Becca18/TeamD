@@ -34,10 +34,9 @@
     {% if prediction %}
       <div class="row">
         <div class="six columns">
-          <h2>It is a {{ prediction }}</h2>
-          <!-- <img src="{{url_for('static', filename='images/iris_' + prediction + '.jpg')}}"
-              height="300" -->
-          <!-- /> -->
+          <h2>Next month's prediction: {{ prediction }}</h2>
+          <img src="{{url_for('static', filename='images/' + prediction + '.jpg')}}"
+              height="300">
         </div>
         <div class="six columns">
          <!--  Your Chart or any other form of visualizations -->
