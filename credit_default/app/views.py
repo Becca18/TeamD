@@ -8,7 +8,6 @@ from wtforms.validators import Required
 
 from . import app, estimator, target_names
 
-
 logger = logging.getLogger('app')
 
 class PredictForm(Form):
@@ -18,22 +17,32 @@ class PredictForm(Form):
     # petal_length = fields.DecimalField('Petal Length:', places=2, validators=[Required()])
     # petal_width = fields.DecimalField('Petal Width:', places=2, validators=[Required()])
     Limit_bal = fields.DecimalField('Limit Balance:', places=2, validators=[Required()])
-    Gender = fields.DecimalField('Gender:', places=2, validators=[Required()])
-    Education = fields.DecimalField('Education:', places=2, validators=[Required()])
-    Marriage = fields.DecimalField('Marriage:', places=2, validators=[Required()])
+    Gender_list = [(1, "Male"), (2, "Female")]
+    Gender = fields.SelectField("Gender", choices=Gender_list, coerce=int)
+    Education_list = [(1, "Graduate school"), (2, "College"), (3, "High school"), (4, "Less than high school")]
+    Education = fields.SelectField("Education", choices=Education_list, coerce=int)
+    Marriage_list = [(1, "Married"), (2, "Single"), (3, "Separated, Divorced, or Widowed")]
+    Marriage = fields.SelectField("Marriage", choices=Marriage_list, coerce=int)
     Age= fields.DecimalField('Age:', places=2, validators=[Required()])
-    submit = fields.SubmitField('Submit')
+    Percent_1_monthago = fields.DecimalField('Percent Paid 1 Month Ago:', places=2, validators=[Required()])
+    Percent_2_monthago = fields.DecimalField('Percent Paid 2 Months Ago:', places=2, validators=[Required()])
+    Percent_3_monthago = fields.DecimalField('Percent Paid 3 Months Ago:', places=2, validators=[Required()])
+    Percent_4_monthago = fields.DecimalField('Percent Paid 4 Months Ago:', places=2, validators=[Required()])
+    Percent_5_monthago = fields.DecimalField('Percent Paid 5 Months Ago:', places=2, validators=[Required()])
+    Percent_6_monthago = fields.DecimalField('Percent Paid 6 Months Ago:', places=2, validators=[Required()])
 
+    submit = fields.SubmitField('Submit')
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
     """Index page"""
     form = PredictForm()
     # predicted_iris = None
-    predicted_default = None
+    result = None
 
     if form.validate_on_submit():
         # store the submitted values
+
         submitted_data = form.data
 
         # Retrieve values from form
@@ -46,18 +55,24 @@ def index():
         Education = float(submitted_data['Education'])
         Marriage = float(submitted_data['Marriage'])
         Age = float(submitted_data['Age'])
+        Percent_1_monthago = float(submitted_data['Percent_1_monthago'])
+        Percent_2_monthago = float(submitted_data['Percent_2_monthago'])
+        Percent_3_monthago = float(submitted_data['Percent_3_monthago'])
+        Percent_4_monthago = float(submitted_data['Percent_4_monthago'])
+        Percent_5_monthago = float(submitted_data['Percent_5_monthago'])
+        Percent_6_monthago = float(submitted_data['Percent_6_monthago'])
 
         # Create array from values
         # flower_instance = [sepal_length, sepal_width, petal_length, petal_width]
-        default_instance = [Limit_bal, Gender, Education, Marriage, Age]
+        default_instance = [Limit_bal, Gender, Education, Marriage, Age,
+        Percent_1_monthago, Percent_2_monthago, Percent_3_monthago,
+        Percent_4_monthago, Percent_5_monthago, Percent_6_monthago]
         # my_prediction = estimator.predict(flower_instance)
-        my_prediction = int(estimator.predict(default_instance)) # 0 or 1
-        #print my_prediction
-        # Return only the Predicted iris species
-        # predicted_iris = target_names[my_prediction]
-        predicted_default = target_names[my_prediction] # paid or default
+        result = estimator.predict(default_instance)[0] # Target Predicted
+    else:
+        print form.data
 
     return render_template('index.html',
         form=form,
         # prediction=predicted_iris
-        prediction=predicted_default)
+        prediction=result)
