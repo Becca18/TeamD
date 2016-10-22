@@ -33,8 +33,13 @@ class PredictForm(Form):
 
     submit = fields.SubmitField('Submit')
 
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
+
+    datastuff = {}
+
+
     """Index page"""
     form = PredictForm()
     # predicted_iris = None
@@ -69,10 +74,25 @@ def index():
         Percent_4_monthago, Percent_5_monthago, Percent_6_monthago]
         # my_prediction = estimator.predict(flower_instance)
         result = estimator.predict(default_instance)[0] # Target Predicted
+
+        datastuff =   {
+    "name": "You",
+    "children": [
+      { 
+    "name": "Payment1: Paid " + str(Percent_1_monthago),
+        "children": [
+          { "name": "Son of A" },
+          { "name": "Daughter of A" }
+        ]
+      },
+      { "name": "Payment1: Default" }
+    ]
+  }
+
     else:
         print form.data
 
     return render_template('index.html',
         form=form,
         # prediction=predicted_iris
-        prediction=result)
+        prediction=result, data=datastuff)
