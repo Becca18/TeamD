@@ -90,7 +90,7 @@ def index():
   }
 
     else:
-        print form.data
+        print (form.data)
 
     return render_template('index.html',
         form=form,
