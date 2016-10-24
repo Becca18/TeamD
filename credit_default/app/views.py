@@ -1,6 +1,7 @@
 import logging
 import json
 
+import pandas as pd
 from flask import render_template
 from flask_wtf import Form
 from wtforms import fields
@@ -34,10 +35,11 @@ class PredictForm(Form):
     submit = fields.SubmitField('Submit')
 
 
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
 
-    datastuff = {}
+    datastuff = []
 
 
     """Index page"""
@@ -75,24 +77,37 @@ def index():
         # my_prediction = estimator.predict(flower_instance)
         result = estimator.predict(default_instance)[0] # Target Predicted
 
-        datastuff =   {
-    "name": "You",
-    "children": [
-      { 
-    "name": "Payment1: Paid " + str(Percent_1_monthago),
-        "children": [
-          { "name": "Son of A" },
-          { "name": "Daughter of A" }
-        ]
-      },
-      { "name": "Payment1: Default" }
-    ]
-  }
 
+
+  #       datastuff =   {
+  #   "name": "You",
+  #   "children": [
+  #     { 
+  #   "name": "Payment1: Paid " + str(Percent_1_monthago),
+  #       "children": [
+  #         { "name": "Son of A" },
+  #         { "name": "Daughter of A" }
+  #       ]
+  #     },
+  #     { "name": "Payment1: Default" }
+  #   ]
+  # }
+        df = pd.DataFrame([{
+                "name": "AAB",
+                "taxonomy": ["A", "AA", "AAB"]
+            },{
+                "name": "AAC",
+                "taxonomy": ["A", "AA", "AAC"]
+            },{
+                "name": "BAB",
+                "taxonomy": ["A", "BA", "BAB"]
+            }       
+        ])
+
+        datastuff = df.to_json(orient="records")
     else:
         print (form.data)
 
     return render_template('index.html',
         form=form,
-        # prediction=predicted_iris
         prediction=result, data=datastuff)
