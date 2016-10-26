@@ -38,6 +38,7 @@ class PredictForm(Form):
 def predict():
     return render_template('homepage.html')
 
+<<<<<<< HEAD
 @app.route('/visualize',methods=('GET','POST'))
 def visualize():
     datastuff = []
@@ -287,6 +288,10 @@ def visualize():
 
 
 @app.route('/predict', methods=('GET', 'POST'))
+=======
+
+@app.route('/', methods=('GET', 'POST'))
+>>>>>>> 67976263756183f43f54ce08ecf7b02741fd84dc
 def index():
 
     datastuff = []
@@ -327,6 +332,7 @@ def index():
         # my_prediction = estimator.predict(flower_instance)
         result = estimator.predict(default_instance)[0] # Target Predicted
 
+<<<<<<< HEAD
         df = pd.DataFrame([{
         "name": "Payment 6 Over 5%",
         "taxonomy": ["Payment 1 Over 0%", "Payment 2 Over 1%", "Payment 3 Over 2%", "Payment 4 Over 3%", "Payment 5 Over 4%", "Payment 6 Over 5%"]
@@ -526,11 +532,39 @@ def index():
 
 
 
+=======
+
+
+  #       datastuff =   {
+  #   "name": "You",
+  #   "children": [
+  #     { 
+  #   "name": "Payment1: Paid " + str(Percent_1_monthago),
+  #       "children": [
+  #         { "name": "Son of A" },
+  #         { "name": "Daughter of A" }
+  #       ]
+  #     },
+  #     { "name": "Payment1: Default" }
+  #   ]
+  # }
+        df = pd.DataFrame([{
+                "name": "AAB",
+                "taxonomy": ["A", "AA", "AAB"]
+            },{
+                "name": "AAC",
+                "taxonomy": ["A", "AA", "AAC"]
+            },{
+                "name": "BAB",
+                "taxonomy": ["A", "BA", "BAB"]
+            }       
+        ])
+
+>>>>>>> 67976263756183f43f54ce08ecf7b02741fd84dc
         datastuff = df.to_json(orient="records")
     else:
         print (form.data)
 
     return render_template('predict.html',
         form=form,
-        # prediction=predicted_iris
         prediction=result, data=datastuff)

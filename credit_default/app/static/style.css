@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,600,600italic,700");
 @import url("font-awesome.min.css");
 
@@ -2104,3 +2105,38 @@
 				}
 
 	}
+=======
+.node circle {
+  fill: #999;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.node--internal circle {
+  fill: #555;
+}
+
+.node--internal text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.4;
+  stroke-width: 1.5px;
+}
+
+/*form {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+label {
+  display: block;
+}*/
+>>>>>>> 67976263756183f43f54ce08ecf7b02741fd84dc
